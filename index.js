@@ -7,6 +7,10 @@ var bot = linebot({
     channelAccessToken: process.env.ChannelSecret
 });
 
+console.log("bot id:", process.env.ChannelId);
+console.log("bot Secret:", process.env.ChannelAccessToken);
+console.log("bot Token:", process.env.ChannelSecret);
+
 bot.on('message', function(event) {
     console.log(event);
 });
