@@ -3,8 +3,8 @@ var express = require('express');
 
 var bot = linebot({
     channelId: 1512220056,
-    channelSecret: ChannelAccessToken,
-    channelAccessToken: ChannelSecret
+    channelSecret: "CqTtMHmOxgTSj7VSTgpqrpu+top4TALAJfdhai/MWKtcwnTxnZzTVHBtxhT0lic14CpQXXkex8MINujrs09uXd9QSiYOCw1peR/WUDBi+dBbJCIf37vCnrRV5wrXAfUxT4v+4oy+4Mtw350tX3cZ7AdB04t89/1O/w1cDnyilFU=",
+    channelAccessToken: "2b36c8f5a18d3c872b4439433e429701"
 });
 
 bot.on('message', function(event) {
