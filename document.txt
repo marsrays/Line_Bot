@@ -1,0 +1,9 @@
+/* HOW THIS PROJECT BUILD UP */
+$ node -v
+(make sure your node version is above 4.2.0)
+$ npm -v
+(I use the npm version 3.9.0)
+$ npm init
+$ npm install linebot express --save
+$ touch index.js
+
