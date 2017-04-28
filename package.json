@@ -4,7 +4,8 @@
   "description": "A demo for line bot webhook.",
   "main": "index.js",
   "scripts": {
-    "test": "node ."
+    "test": "node .",
+    "start": "node ."
   },
   "repository": {
     "type": "git",
