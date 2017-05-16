@@ -7,6 +7,7 @@ var server = require('http').Server(app);
 
 // 取得LINE貼圖資訊
 function getStickerInfo(packageId, event) {
+    console.log("getStickerInfo", packageId, event);
     getJSON('https://store.line.me/stickershop/product/'+packageId, function(error, response) {
         console.log(response);
         var msg = '要發送的文字';
