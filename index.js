@@ -6,9 +6,17 @@ var linebot = require('linebot');
 var server = require('http').Server(app);
 
 // 取得LINE貼圖資訊
-function getStickerInfo(packageId) {
+function getStickerInfo(packageId, event) {
     getJSON('https://store.line.me/stickershop/product/'+packageId, function(error, response) {
         console.log(response);
+        var msg = '要發送的文字';
+        event.reply(msg).then(function(data) {
+            // success
+            console.log(msg);
+        }).catch(function(error) {
+            // error
+            console.log('error');
+        });
     });
 }
 
@@ -33,7 +41,8 @@ bot.on('message', function(event) {
             if ('1252298' === event.message.packageId) {
                 msg += " '喵尼愛撒嬌'";
             } else {
-                getStickerInfo();
+                msg = undefined;
+                getStickerInfo(event.message.packageId, event);
             }
             break;
         case "text":
@@ -46,16 +55,20 @@ bot.on('message', function(event) {
             break;
     }
 
-    event.reply(msg).then(function(data) {
-        // success
-        console.log(msg);
-    }).catch(function(error) {
-        // error
-        console.log('error');
-    });
+    if ("undefined" !== typeof msg) {
+        event.reply(msg).then(function(data) {
+            // success
+            console.log(msg);
+        }).catch(function(error) {
+            // error
+            console.log('error');
+        });
+    }
+
 });
 
 server.listen(process.env.PORT || 8080, function() {
     var port = server.address().port;
     console.log("App now runing on port", port);
+    bot.push('U73ab7d9b92ede34d22dcb330647b7e43', "BOT 已啟動");
 });
