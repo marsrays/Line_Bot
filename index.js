@@ -21,21 +21,12 @@ function getStickerInfo(packageId, event) {
         /* e: 錯誤代碼 */
         /* b: 傳回的資料內容 */
         if(e || !b) { return; }
-        console.log("start cheerio load...");
+
         var $ = cheerio.load(b);
-        console.log("end cheerio load...");
         var title = $("title")[0];
-        console.log("fetch title");
         var titleName = $(title).text();
         console.log(titleName);
         REPLY(titleName);
-        // REPLY(title).then(function(data) {
-        //     // success
-        //     console.log(msg);
-        // }).catch(function(error) {
-        //     // error
-        //     console.log('error');
-        // });
     });
 }
 
@@ -68,10 +59,10 @@ bot.on('message', function(event) {
             if ("RAY" === event.message.text.toUpperCase()) {
                 msg = "造物主";
             } else {
+                msg = "text"
                 setTimeout(function(){
-                    var userId = event.source.userId;
                     var sendMsg = event.message.text;
-                    bot.push(userId,sendMsg);
+                    event.reply(sendMsg)
                     console.log('send: '+sendMsg);
                 },5000);
             }
