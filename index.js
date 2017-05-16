@@ -27,6 +27,7 @@ function getStickerInfo(packageId, event) {
         var title = $("title")[0];
         console.log("fetch title");
         console.log($(title).text());
+        REPLY(title);
         // REPLY(title).then(function(data) {
         //     // success
         //     console.log(msg);
