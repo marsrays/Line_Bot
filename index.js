@@ -1,4 +1,6 @@
 var getJSON = require('get-json');
+var request = require("request");
+var cheerio = require("cheerio");
 var express = require('express');
 const app = express();
 
@@ -8,10 +10,21 @@ var server = require('http').Server(app);
 // 取得LINE貼圖資訊
 function getStickerInfo(packageId, event) {
     console.log("getStickerInfo", packageId, event);
-    getJSON('https://store.line.me/stickershop/product/'+packageId, function(error, response) {
-        console.log(response);
-        var msg = '要發送的文字';
-        event.reply(msg).then(function(data) {
+    request({
+        url: "https://store.line.me/stickershop/product/"+packageId,
+        method: "GET",
+        headers: {
+            "Accept-Language": "zh-TW"
+        }
+    }, function(e,r,b) { /* Callback 函式 */
+        /* e: 錯誤代碼 */
+        /* b: 傳回的資料內容 */
+        if(e || !b) { return; }
+        console.log(b);
+        var $ = cheerio.load(b);
+        var title = $("title")[0];
+        console.log($(title).text());
+        event.reply(title).then(function(data) {
             // success
             console.log(msg);
         }).catch(function(error) {
@@ -49,6 +62,13 @@ bot.on('message', function(event) {
         case "text":
             if ("RAY" === event.message.text.toUpperCase()) {
                 msg = "造物主";
+            } else {
+                setTimeout(function(){
+                    var userId = event.source.userId;
+                    var sendMsg = event.message.text;
+                    bot.push(userId,sendMsg);
+                    console.log('send: '+sendMsg);
+                },5000);
             }
             break;
         default:
@@ -71,5 +91,4 @@ bot.on('message', function(event) {
 server.listen(process.env.PORT || 8080, function() {
     var port = server.address().port;
     console.log("App now runing on port", port);
-    bot.push('U73ab7d9b92ede34d22dcb330647b7e43', "BOT 已啟動");
 });
