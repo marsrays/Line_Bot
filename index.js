@@ -41,6 +41,9 @@ console.log("bot Secret:", process.env.ChannelAccessToken);
 console.log("bot Token:", process.env.ChannelSecret);
 
 app.use('/webhook', bot.parser());
+bot.on('join', function (event) {
+    event.reply("歡迎來到My_AI自動化訊息區，我可以認得貼圖唷~");
+});
 bot.on('message', function(event) {
     console.log("BOT GET A MESSAGE:", event.source.userId); //把收到訊息的 event 印出來看看
 
