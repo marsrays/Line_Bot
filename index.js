@@ -27,7 +27,7 @@ console.log("bot Token:", process.env.ChannelSecret);
 // });
 app.use('/webhook', bot.parser());
 bot.on('message', function(event) {
-    console.log(event); //把收到訊息的 event 印出來看看
+    console.log("BOT GET A MESSAGE:", event); //把收到訊息的 event 印出來看看
 });
 
 server.listen(process.env.PORT || 8080, function() {
