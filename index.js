@@ -10,6 +10,7 @@ var server = require('http').Server(app);
 // 取得LINE貼圖資訊
 function getStickerInfo(packageId, event) {
     console.log("getStickerInfo", packageId, event);
+    const REPLY = event.reply;
     request({
         url: "https://store.line.me/stickershop/product/"+packageId,
         method: "GET",
@@ -24,7 +25,7 @@ function getStickerInfo(packageId, event) {
         var $ = cheerio.load(b);
         var title = $("title")[0];
         console.log($(title).text());
-        event.reply(title).then(function(data) {
+        REPLY(title).then(function(data) {
             // success
             console.log(msg);
         }).catch(function(error) {
