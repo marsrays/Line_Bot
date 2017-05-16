@@ -26,7 +26,7 @@ function getStickerInfo(packageId, event) {
         console.log("end cheerio load...");
         var title = $("title")[0];
         console.log("fetch title");
-        // console.log($(title).text());
+        console.log($(title).text());
         // REPLY(title).then(function(data) {
         //     // success
         //     console.log(msg);
