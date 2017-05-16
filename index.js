@@ -23,15 +23,15 @@ function getStickerInfo(packageId, event) {
         if(e || !b) { return; }
         console.log(b);
         var $ = cheerio.load(b);
-        var title = $("title")[0];
-        console.log($(title).text());
-        REPLY(title).then(function(data) {
-            // success
-            console.log(msg);
-        }).catch(function(error) {
-            // error
-            console.log('error');
-        });
+        // var title = $("title")[0];
+        // console.log($(title).text());
+        // REPLY(title).then(function(data) {
+        //     // success
+        //     console.log(msg);
+        // }).catch(function(error) {
+        //     // error
+        //     console.log('error');
+        // });
     });
 }
 
