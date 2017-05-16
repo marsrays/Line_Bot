@@ -42,7 +42,7 @@ console.log("bot Token:", process.env.ChannelSecret);
 
 app.use('/webhook', bot.parser());
 bot.on('message', function(event) {
-    console.log("BOT GET A MESSAGE:", event); //把收到訊息的 event 印出來看看
+    console.log("BOT GET A MESSAGE:", event.source.userId); //把收到訊息的 event 印出來看看
 
     var msg = "";
     switch(event.message.type) {
@@ -63,7 +63,7 @@ bot.on('message', function(event) {
                     var sendMsg = event.message.text;
                     event.reply(sendMsg)
                     console.log('send: '+sendMsg);
-                },5000);
+                },2000);
             }
             break;
         default:
