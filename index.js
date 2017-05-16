@@ -21,9 +21,11 @@ function getStickerInfo(packageId, event) {
         /* e: 錯誤代碼 */
         /* b: 傳回的資料內容 */
         if(e || !b) { return; }
-        console.log(b);
+        console.log("start cheerio load...");
         var $ = cheerio.load(b);
-        // var title = $("title")[0];
+        console.log("end cheerio load...");
+        var title = $("title")[0];
+        console.log("fetch title");
         // console.log($(title).text());
         // REPLY(title).then(function(data) {
         //     // success
