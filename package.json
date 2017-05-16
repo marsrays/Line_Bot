@@ -19,7 +19,7 @@
   "homepage": "https://github.com/marsrays/Line_Bot#readme",
   "dependencies": {
     "express": "^4.15.2",
-    "line-messaging": "^1.1.8",
+    "get-json": "0.0.3",
     "linebot": "^1.3.0"
   }
 }

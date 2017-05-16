@@ -1,9 +1,16 @@
+var getJSON = require('get-json');
 var express = require('express');
 const app = express();
 
 var linebot = require('linebot');
 var server = require('http').Server(app);
 
+// 取得LINE貼圖資訊
+function getStickerInfo(packageId) {
+    getJSON('https://store.line.me/stickershop/product/'+packageId, function(error, response) {
+        console.log(response);
+    });
+}
 
 var bot = linebot({
     channelId: process.env.ChannelId,
@@ -25,6 +32,8 @@ bot.on('message', function(event) {
             msg = "貼圖";
             if ('1252298' === event.message.packageId) {
                 msg += " '喵尼愛撒嬌'";
+            } else {
+                getStickerInfo();
             }
             break;
         case "text":
