@@ -42,6 +42,7 @@ console.log("bot Token:", process.env.ChannelSecret);
 
 app.use('/webhook', bot.parser());
 bot.on('join', function (event) {
+    console.log("USER JOIN:", event.source.userId);
     event.reply("歡迎來到My_AI自動化訊息區，我可以認得貼圖唷~");
 });
 bot.on('message', function(event) {
@@ -64,7 +65,7 @@ bot.on('message', function(event) {
             } else {
                 setTimeout(function(){
                     var sendMsg = event.message.text;
-                    event.reply(sendMsg)
+                    event.reply(sendMsg);
                     console.log('send: '+sendMsg);
                 },2000);
             }
