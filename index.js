@@ -59,7 +59,6 @@ bot.on('message', function(event) {
             if ("RAY" === event.message.text.toUpperCase()) {
                 msg = "造物主";
             } else {
-                msg = "text"
                 setTimeout(function(){
                     var sendMsg = event.message.text;
                     event.reply(sendMsg)
