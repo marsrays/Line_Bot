@@ -10,10 +10,14 @@ var server = require('http').Server(app);
 
 // 刷新pixnet js
 function refreshJS(event) {
-	const REPLY = event.reply;
-	var filePath = __dirname + '/download_file/GoToThePixnetadToGo.js';
+    var dir = __dirname + '/download_file'
+    if (!fs.existsSync(dir)){
+        fs.mkdirSync(dir);
+    }
+    const REPLY = event.reply;
+    var filePath = dir + '/GoToThePixnetadToGo.js';
 	
-	request({
+    request({
         url: "https://raw.githubusercontent.com/marsrays/Go_To_The_Pixnetad_To_Go/master/GoToThePixnetadToGo.js",
         method: "GET"
     }, function(e,r,b) { /* Callback 函式 */
@@ -21,9 +25,8 @@ function refreshJS(event) {
         /* b: 傳回的資料內容 */
         if(e || !b) { return; }
 
-        fs.writeFile(filePath, b, 'utf8');
-		
-		REPLY("搞定！");
+        fs.writeFile(filePath, b, 'utf8');	
+        REPLY("搞定！");
     });
 }
 
@@ -90,8 +93,8 @@ bot.on('message', function(event) {
             if ("RAY" === event.message.text.toUpperCase()) {
                 msg = "造物主";
             } else if ("刷新js") {
-				refreshJS(event);
-			} else {
+                refreshJS(event);
+            } else {
                 setTimeout(function(){
                     var sendMsg = event.message.text;
                     event.reply(sendMsg);
