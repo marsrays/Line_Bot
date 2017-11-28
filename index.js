@@ -94,6 +94,12 @@ bot.on('message', function(event) {
 
 });
 
+/*other API*/
+app.get('/js/:filename', function(req, res) {
+  var file = __dirname + '/download_file/' + req.params.filename + '.js';
+  res.download(file); // Set disposition and send it.
+});
+
 server.listen(process.env.PORT || 8080, function() {
     var port = server.address().port;
     console.log("App now runing on port", port);
