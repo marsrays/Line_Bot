@@ -2,10 +2,30 @@ var getJSON = require('get-json');
 var request = require("request");
 var cheerio = require("cheerio");
 var express = require('express');
+var fs = require('fs');
 const app = express();
 
 var linebot = require('linebot');
 var server = require('http').Server(app);
+
+// 刷新pixnet js
+function refreshJS(event) {
+	const REPLY = event.reply;
+	var filePath = __dirname + '/download_file/GoToThePixnetadToGo.js';
+	
+	request({
+        url: "https://raw.githubusercontent.com/marsrays/Go_To_The_Pixnetad_To_Go/master/GoToThePixnetadToGo.js",
+        method: "GET"
+    }, function(e,r,b) { /* Callback 函式 */
+        /* e: 錯誤代碼 */
+        /* b: 傳回的資料內容 */
+        if(e || !b) { return; }
+
+        fs.writeFile(filePath, b, 'utf8');
+		
+		REPLY("搞定！");
+    });
+}
 
 // 取得LINE貼圖資訊
 function getStickerInfo(packageId, event) {
@@ -69,7 +89,9 @@ bot.on('message', function(event) {
         case "text":
             if ("RAY" === event.message.text.toUpperCase()) {
                 msg = "造物主";
-            } else {
+            } else if ("刷新js") {
+				refreshJS(event);
+			} else {
                 setTimeout(function(){
                     var sendMsg = event.message.text;
                     event.reply(sendMsg);
@@ -96,8 +118,8 @@ bot.on('message', function(event) {
 
 /*other API*/
 app.get('/js/:filename', function(req, res) {
-  var file = __dirname + '/download_file/' + req.params.filename + '.js';
-  res.download(file); // Set disposition and send it.
+    var file = __dirname + '/download_file/' + req.params.filename + '.js';
+    res.download(file); // Set disposition and send it.
 });
 
 server.listen(process.env.PORT || 8080, function() {
