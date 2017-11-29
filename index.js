@@ -14,7 +14,7 @@ function refreshJS(event) {
     if (!fs.existsSync(dir)){
         fs.mkdirSync(dir);
     }
-    const REPLY = event.reply;
+    const REPLY = event ? event.reply : function(s){ console.log(s); };
     var filePath = dir + '/GoToThePixnetadToGo.js';
 	
     request({
@@ -128,4 +128,5 @@ app.get('/js/:filename', function(req, res) {
 server.listen(process.env.PORT || 8080, function() {
     var port = server.address().port;
     console.log("App now runing on port", port);
+    refreshJS();
 });
